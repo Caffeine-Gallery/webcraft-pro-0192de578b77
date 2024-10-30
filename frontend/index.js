@@ -493,12 +493,12 @@ function adjustCanvasSize(device) {
             canvasContainer.style.overflow = 'hidden';
             break;
         case 'tablet':
-            canvas.style.width = '100%';
+            canvas.style.width = '768px';
             canvas.style.height = '1024px';
             canvasContainer.style.overflow = 'auto';
             break;
         case 'mobile':
-            canvas.style.width = '100%';
+            canvas.style.width = '375px';
             canvas.style.height = '667px';
             canvasContainer.style.overflow = 'auto';
             break;
@@ -512,7 +512,6 @@ function setupTopControls() {
     document.getElementById('toggle-grid-btn').addEventListener('click', toggleGrid);
     document.getElementById('save-btn').addEventListener('click', saveDesign);
     document.getElementById('preview-btn').addEventListener('click', previewDesign);
-    document.getElementById('publish-btn').addEventListener('click', publishDesign);
 }
 
 function setupPropertyPanel() {
@@ -520,6 +519,14 @@ function setupPropertyPanel() {
     inputs.forEach(input => {
         input.addEventListener('change', updateElementProperty);
     });
+
+    const propertiesToggle = document.getElementById('properties-toggle');
+    propertiesToggle.addEventListener('click', togglePropertiesPanel);
+}
+
+function togglePropertiesPanel() {
+    const propertiesPanel = document.getElementById('properties-panel');
+    propertiesPanel.classList.toggle('collapsed');
 }
 
 function updatePropertyPanel() {
@@ -531,6 +538,7 @@ function updatePropertyPanel() {
     document.getElementById('element-text').value = currentElement.innerText;
     document.getElementById('element-font-size').value = currentElement.style.fontSize;
     document.getElementById('element-font-color').value = rgb2hex(currentElement.style.color);
+    document.getElementById('element-link').value = currentElement.getAttribute('href') || '';
 }
 
 function updateElementProperty(e) {
@@ -555,6 +563,17 @@ function updateElementProperty(e) {
             break;
         case 'font-color':
             currentElement.style.color = value;
+            break;
+        case 'link':
+            if (currentElement.tagName === 'A') {
+                currentElement.href = value;
+            } else {
+                const link = document.createElement('a');
+                link.href = value;
+                link.innerHTML = currentElement.innerHTML;
+                currentElement.parentNode.replaceChild(link, currentElement);
+                currentElement = link;
+            }
             break;
     }
 
@@ -641,17 +660,6 @@ function previewDesign() {
     previewWindow.document.write(canvas.innerHTML);
     previewWindow.document.write('</body></html>');
     previewWindow.document.close();
-}
-
-async function publishDesign() {
-    const design = canvas.innerHTML;
-    try {
-        const publishedUrl = await backend.publishDesign(design);
-        alert(`Design published successfully! URL: ${publishedUrl}`);
-    } catch (error) {
-        console.error('Error publishing design:', error);
-        alert('Failed to publish design. Please try again.');
-    }
 }
 
 function setupCanvas() {

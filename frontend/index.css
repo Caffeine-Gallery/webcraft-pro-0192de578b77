@@ -164,18 +164,20 @@ body, html {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     min-height: 100%;
-    width: 100%;
 }
 
 #canvas.desktop {
+    width: 100%;
     height: 100%;
 }
 
 #canvas.tablet {
+    width: 768px;
     height: 1024px;
 }
 
 #canvas.mobile {
+    width: 375px;
     height: 667px;
 }
 
@@ -201,6 +203,27 @@ body, html {
     background-color: #f0f0f0;
     padding: 20px;
     overflow-y: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: transform 0.3s ease;
+}
+
+#properties-panel.collapsed {
+    transform: translateX(230px);
+}
+
+#properties-toggle {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-right: none;
+    padding: 10px 5px;
+    cursor: pointer;
 }
 
 .property-group {
@@ -293,7 +316,7 @@ body, html {
     cursor: se-resize;
 }
 
-[contenteditable=\"true\"]:focus {
+[contenteditable="true"]:focus {
     outline: 2px solid #007bff;
     padding: 2px;
 }

@@ -4,34 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Builder</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
     <link rel="stylesheet" href="index.css">
-    <script type="module" src="index.js"></script>
 </head>
 <body>
     <div id="app">
-        <div id="template-selection" class="active">
+        <div id="template-selection">
             <h1>Choose a Template</h1>
             <div class="template-grid">
                 <div class="template" data-template="business">
-                    <img src="https://via.placeholder.com/300x200?text=Business+Template" alt="Business Template">
-                    <h3>Business</h3>
+                    <img src="https://via.placeholder.com/150" alt="Business Template">
+                    <p>Business</p>
                 </div>
                 <div class="template" data-template="portfolio">
-                    <img src="https://via.placeholder.com/300x200?text=Portfolio+Template" alt="Portfolio Template">
-                    <h3>Portfolio</h3>
+                    <img src="https://via.placeholder.com/150" alt="Portfolio Template">
+                    <p>Portfolio</p>
                 </div>
                 <div class="template" data-template="blog">
-                    <img src="https://via.placeholder.com/300x200?text=Blog+Template" alt="Blog Template">
-                    <h3>Blog</h3>
+                    <img src="https://via.placeholder.com/150" alt="Blog Template">
+                    <p>Blog</p>
                 </div>
                 <div class="template" data-template="ecommerce">
-                    <img src="https://via.placeholder.com/300x200?text=E-commerce+Template" alt="E-commerce Template">
-                    <h3>E-commerce</h3>
+                    <img src="https://via.placeholder.com/150" alt="E-commerce Template">
+                    <p>E-commerce</p>
                 </div>
                 <div class="template" data-template="blank">
-                    <img src="https://via.placeholder.com/300x200?text=Blank+Canvas" alt="Blank Canvas">
-                    <h3>Blank Canvas</h3>
+                    <img src="https://via.placeholder.com/150" alt="Blank Template">
+                    <p>Blank</p>
                 </div>
             </div>
         </div>
@@ -39,86 +38,81 @@
             <div id="sidebar">
                 <div class="logo">Website Builder</div>
                 <div class="sidebar-section">
-                    <h3 class="sidebar-title">Add Elements</h3>
+                    <h3 class="sidebar-title">Elements</h3>
                     <div class="element-grid">
-                        <div class="element" draggable="true" data-type="heading">
-                            <i class="ri-heading"></i>
+                        <div class="element" data-type="heading">
+                            <i class="ri-h-1"></i>
                             <span>Heading</span>
                         </div>
-                        <div class="element" draggable="true" data-type="text">
+                        <div class="element" data-type="text">
                             <i class="ri-text"></i>
                             <span>Text</span>
                         </div>
-                        <div class="element" draggable="true" data-type="button">
-                            <i class="ri-button-2-line"></i>
+                        <div class="element" data-type="button">
+                            <i class="ri-radio-button-line"></i>
                             <span>Button</span>
                         </div>
-                        <div class="element" draggable="true" data-type="image">
+                        <div class="element" data-type="image">
                             <i class="ri-image-line"></i>
                             <span>Image</span>
                         </div>
-                        <div class="element" draggable="true" data-type="video">
+                        <div class="element" data-type="video">
                             <i class="ri-video-line"></i>
                             <span>Video</span>
                         </div>
-                        <div class="element" draggable="true" data-type="form">
-                            <i class="ri-file-list-3-line"></i>
+                        <div class="element" data-type="form">
+                            <i class="ri-file-list-line"></i>
                             <span>Form</span>
                         </div>
-                        <div class="element" draggable="true" data-type="list">
+                        <div class="element" data-type="list">
                             <i class="ri-list-unordered"></i>
                             <span>List</span>
                         </div>
-                        <div class="element" draggable="true" data-type="table">
+                        <div class="element" data-type="table">
                             <i class="ri-table-line"></i>
                             <span>Table</span>
                         </div>
-                        <div class="element" draggable="true" data-type="social-icons">
+                        <div class="element" data-type="social-icons">
                             <i class="ri-share-line"></i>
                             <span>Social Icons</span>
                         </div>
-                        <div class="element" draggable="true" data-type="map">
+                        <div class="element" data-type="map">
                             <i class="ri-map-pin-line"></i>
                             <span>Map</span>
                         </div>
-                        <div class="element" draggable="true" data-type="countdown">
+                        <div class="element" data-type="countdown">
                             <i class="ri-timer-line"></i>
                             <span>Countdown</span>
                         </div>
-                        <div class="element" draggable="true" data-type="pricing-table">
+                        <div class="element" data-type="pricing-table">
                             <i class="ri-price-tag-3-line"></i>
                             <span>Pricing Table</span>
                         </div>
-                        <div class="element" draggable="true" data-type="carousel">
-                            <i class="ri-slideshow-line"></i>
+                        <div class="element" data-type="carousel">
+                            <i class="ri-slideshow-3-line"></i>
                             <span>Carousel</span>
                         </div>
-                        <div class="element" draggable="true" data-type="accordion">
+                        <div class="element" data-type="accordion">
                             <i class="ri-menu-fold-line"></i>
                             <span>Accordion</span>
                         </div>
-                        <div class="element" draggable="true" data-type="tabs">
-                            <i class="ri-window-line"></i>
+                        <div class="element" data-type="tabs">
+                            <i class="ri-function-line"></i>
                             <span>Tabs</span>
                         </div>
-                        <div class="element" draggable="true" data-type="testimonial">
-                            <i class="ri-chat-quote-line"></i>
+                        <div class="element" data-type="testimonial">
+                            <i class="ri-double-quotes-l"></i>
                             <span>Testimonial</span>
                         </div>
-                    </div>
-                </div>
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Layout</h3>
-                    <div class="element-grid">
-                        <div class="element" draggable="true" data-type="section">
+                        <div class="element" data-type="section">
                             <i class="ri-layout-2-line"></i>
                             <span>Section</span>
                         </div>
-                        <div class="element" draggable="true" data-type="container">
-                            <i class="ri-layout-3-line"></i>
+                        <div class="element" data-type="container">
+                            <i class="ri-layout-row-line"></i>
                             <span>Container</span>
                         </div>
-                        <div class="element" draggable="true" data-type="grid">
+                        <div class="element" data-type="grid">
                             <i class="ri-grid-line"></i>
                             <span>Grid</span>
                         </div>
@@ -128,18 +122,17 @@
             <div id="main-content">
                 <div id="top-bar">
                     <div class="device-controls">
-                        <button class="device-button active" data-device="desktop"><i class="ri-computer-line"></i></button>
-                        <button class="device-button" data-device="tablet"><i class="ri-tablet-line"></i></button>
-                        <button class="device-button" data-device="mobile"><i class="ri-smartphone-line"></i></button>
+                        <button class="button device-button active" data-device="desktop"><i class="ri-computer-line"></i> Desktop</button>
+                        <button class="button device-button" data-device="tablet"><i class="ri-tablet-line"></i> Tablet</button>
+                        <button class="button device-button" data-device="mobile"><i class="ri-smartphone-line"></i> Mobile</button>
                     </div>
                     <div class="top-controls">
-                        <button class="button button-secondary" id="undo-btn"><i class="ri-arrow-go-back-line"></i> Undo</button>
-                        <button class="button button-secondary" id="redo-btn"><i class="ri-arrow-go-forward-line"></i> Redo</button>
-                        <button class="button button-secondary" id="view-code-btn"><i class="ri-code-line"></i> View Code</button>
-                        <button class="button button-secondary" id="toggle-grid-btn"><i class="ri-grid-line"></i> Toggle Grid</button>
-                        <button class="button button-primary" id="save-btn"><i class="ri-save-line"></i> Save</button>
-                        <button class="button button-secondary" id="preview-btn"><i class="ri-eye-line"></i> Preview</button>
-                        <button class="button button-primary" id="publish-btn"><i class="ri-upload-cloud-2-line"></i> Publish</button>
+                        <button id="undo-btn" class="button button-secondary"><i class="ri-arrow-go-back-line"></i> Undo</button>
+                        <button id="redo-btn" class="button button-secondary"><i class="ri-arrow-go-forward-line"></i> Redo</button>
+                        <button id="view-code-btn" class="button button-secondary"><i class="ri-code-line"></i> View Code</button>
+                        <button id="toggle-grid-btn" class="button button-secondary"><i class="ri-grid-line"></i> Toggle Grid</button>
+                        <button id="save-btn" class="button button-primary"><i class="ri-save-line"></i> Save</button>
+                        <button id="preview-btn" class="button button-primary"><i class="ri-eye-line"></i> Preview</button>
                     </div>
                 </div>
                 <div id="canvas-container">
@@ -147,7 +140,8 @@
                     <div class="grid-overlay"></div>
                 </div>
             </div>
-            <div id="properties-panel">
+            <div id="properties-panel" class="collapsed">
+                <div id="properties-toggle"><i class="ri-arrow-left-s-line"></i></div>
                 <h3>Element Properties</h3>
                 <div class="property-group">
                     <label for="element-width">Width:</label>
@@ -161,7 +155,7 @@
                     <label for="element-bgcolor">Background Color:</label>
                     <div class="color-picker-wrapper">
                         <input type="color" id="element-bgcolor" class="property-input">
-                        <div id="bg-color-preview" class="color-preview"></div>
+                        <div class="color-preview"></div>
                     </div>
                 </div>
                 <div class="property-group">
@@ -174,16 +168,24 @@
                 </div>
                 <div class="property-group">
                     <label for="element-font-color">Font Color:</label>
-                    <input type="color" id="element-font-color" class="property-input">
+                    <div class="color-picker-wrapper">
+                        <input type="color" id="element-font-color" class="property-input">
+                        <div class="color-preview"></div>
+                    </div>
+                </div>
+                <div class="property-group">
+                    <label for="element-link">Link URL:</label>
+                    <input type="text" id="element-link" class="property-input">
                 </div>
             </div>
         </div>
     </div>
     <div id="code-view-overlay" style="display: none;">
         <div id="code-view-content">
-            <pre><code id="generated-code"></code></pre>
+            <button id="close-code-view">Close</button>
+            <pre id="generated-code"></pre>
         </div>
-        <button id="close-code-view">Close</button>
     </div>
+    <script type="module" src="index.js"></script>
 </body>
 </html>
