@@ -101,26 +101,33 @@ body, html {
     flex-grow: 1;
     position: relative;
     overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #e9ecef;
 }
 
 #canvas {
-    min-height: 100%;
     background-color: #fff;
     position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 #canvas.desktop {
     width: 100%;
+    height: 100%;
 }
 
 #canvas.tablet {
     width: 768px;
-    margin: 0 auto;
+    height: 1024px;
 }
 
 #canvas.mobile {
     width: 375px;
-    margin: 0 auto;
+    height: 667px;
 }
 
 .grid-overlay {
@@ -227,9 +234,17 @@ body, html {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-#canvas {
-    min-height: 100%;
-    background-color: #fff;
-    position: relative;
-    z-index: 1;
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #007bff;
+    bottom: -5px;
+    right: -5px;
+    cursor: se-resize;
+}
+
+[contenteditable="true"]:focus {
+    outline: 2px solid #007bff;
+    padding: 2px;
 }

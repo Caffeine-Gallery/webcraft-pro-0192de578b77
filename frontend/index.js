@@ -4,6 +4,7 @@ let currentElement = null;
 let undoStack = [];
 let redoStack = [];
 let isDragging = false;
+let isResizing = false;
 let dragOffsetX, dragOffsetY;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -56,10 +57,10 @@ function createElementByType(type) {
 
     switch (type) {
         case 'heading':
-            element.innerHTML = '<h2>Heading</h2>';
+            element.innerHTML = '<h2 contenteditable="true">Heading</h2>';
             break;
         case 'text':
-            element.innerHTML = '<p>Text content</p>';
+            element.innerHTML = '<p contenteditable="true">Text content</p>';
             break;
         case 'button':
             element.innerHTML = '<button>Button</button>';
@@ -71,6 +72,8 @@ function createElementByType(type) {
     }
 
     element.addEventListener('mousedown', elementMouseDown);
+    element.addEventListener('dblclick', makeEditable);
+    addResizeHandle(element);
     return element;
 }
 
@@ -82,9 +85,13 @@ function elementMouseDown(e) {
     currentElement.classList.add('selected');
     updatePropertyPanel();
 
-    isDragging = true;
-    dragOffsetX = e.clientX - currentElement.offsetLeft;
-    dragOffsetY = e.clientY - currentElement.offsetTop;
+    if (e.target.classList.contains('resize-handle')) {
+        isResizing = true;
+    } else {
+        isDragging = true;
+        dragOffsetX = e.clientX - currentElement.offsetLeft;
+        dragOffsetY = e.clientY - currentElement.offsetTop;
+    }
 
     document.addEventListener('mousemove', elementDrag);
     document.addEventListener('mouseup', elementMouseUp);
@@ -104,14 +111,37 @@ function elementDrag(e) {
         currentElement.style.left = `${newX}px`;
         currentElement.style.top = `${newY}px`;
         updatePropertyPanel();
+    } else if (isResizing && currentElement) {
+        e.preventDefault();
+        const newWidth = e.clientX - currentElement.offsetLeft;
+        const newHeight = e.clientY - currentElement.offsetTop;
+        currentElement.style.width = `${newWidth}px`;
+        currentElement.style.height = `${newHeight}px`;
+        updatePropertyPanel();
     }
 }
 
 function elementMouseUp() {
     isDragging = false;
+    isResizing = false;
     document.removeEventListener('mousemove', elementDrag);
     document.removeEventListener('mouseup', elementMouseUp);
     addToUndoStack();
+}
+
+function makeEditable(e) {
+    const element = e.target.closest('.canvas-element');
+    const content = element.querySelector('h2, p, button');
+    if (content) {
+        content.contentEditable = true;
+        content.focus();
+    }
+}
+
+function addResizeHandle(element) {
+    const resizeHandle = document.createElement('div');
+    resizeHandle.classList.add('resize-handle');
+    element.appendChild(resizeHandle);
 }
 
 function setupDeviceControls() {
@@ -120,9 +150,29 @@ function setupDeviceControls() {
         button.addEventListener('click', () => {
             deviceButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            document.getElementById('canvas').className = button.dataset.device;
+            const device = button.dataset.device;
+            document.getElementById('canvas').className = device;
+            adjustCanvasSize(device);
         });
     });
+}
+
+function adjustCanvasSize(device) {
+    const canvas = document.getElementById('canvas');
+    switch (device) {
+        case 'desktop':
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            break;
+        case 'tablet':
+            canvas.style.width = '768px';
+            canvas.style.height = '1024px';
+            break;
+        case 'mobile':
+            canvas.style.width = '375px';
+            canvas.style.height = '667px';
+            break;
+    }
 }
 
 function setupTopControls() {
@@ -277,5 +327,7 @@ function setupCanvasElements() {
     const elements = document.querySelectorAll('.canvas-element');
     elements.forEach(element => {
         element.addEventListener('mousedown', elementMouseDown);
+        element.addEventListener('dblclick', makeEditable);
+        addResizeHandle(element);
     });
 }
