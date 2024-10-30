@@ -185,8 +185,7 @@ body, html {
 #code-view-overlay {
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
+    left: 0;right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
     display: flex;
@@ -244,7 +243,67 @@ body, html {
     cursor: se-resize;
 }
 
-[contenteditable="true"]:focus {
+[contenteditable=\"true\"]:focus {
     outline: 2px solid #007bff;
     padding: 2px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icon {
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+}
+
+.pricing-table {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.pricing-plan {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
+
+.pricing-plan h3 {
+    margin-top: 0;
+}
+
+.pricing-plan .price {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.pricing-plan ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.pricing-plan li {
+    margin: 5px 0;
+}
+
+.pricing-plan button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#generated-code {
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
 }

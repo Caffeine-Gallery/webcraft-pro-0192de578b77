@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupTopControls();
     setupPropertyPanel();
     setupCanvas();
+    setupCodeViewOverlay();
 });
 
 function setupDragAndDrop() {
@@ -68,7 +69,94 @@ function createElementByType(type) {
         case 'image':
             element.innerHTML = '<img src="https://via.placeholder.com/150" alt="Placeholder">';
             break;
-        // Add more cases for other element types
+        case 'video':
+            element.innerHTML = '<video width="320" height="240" controls><source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">Your browser does not support the video tag.</video>';
+            break;
+        case 'form':
+            element.innerHTML = `
+                <form>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <button type="submit">Submit</button>
+                </form>
+            `;
+            break;
+        case 'list':
+            element.innerHTML = `
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                </ul>
+            `;
+            break;
+        case 'table':
+            element.innerHTML = `
+                <table>
+                    <tr>
+                        <th>Header 1</th>
+                        <th>Header 2</th>
+                    </tr>
+                    <tr>
+                        <td>Row 1, Cell 1</td>
+                        <td>Row 1, Cell 2</td>
+                    </tr>
+                    <tr>
+                        <td>Row 2, Cell 1</td>
+                        <td>Row 2, Cell 2</td>
+                    </tr>
+                </table>
+            `;
+            break;
+        case 'social-icons':
+            element.innerHTML = `
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="ri-facebook-fill"></i></a>
+                    <a href="#" class="social-icon"><i class="ri-twitter-fill"></i></a>
+                    <a href="#" class="social-icon"><i class="ri-instagram-fill"></i></a>
+                </div>
+            `;
+            break;
+        case 'map':
+            element.innerHTML = '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968482413!3d40.75889497932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes+Square!5e0!3m2!1sen!2sus!4v1510579767645" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>';
+            break;
+        case 'countdown':
+            element.innerHTML = '<div class="countdown">Countdown: <span id="countdown-timer">00:00:00</span></div>';
+            startCountdown(element.querySelector('#countdown-timer'));
+            break;
+        case 'pricing-table':
+            element.innerHTML = `
+                <div class="pricing-table">
+                    <div class="pricing-plan">
+                        <h3>Basic</h3>
+                        <p class="price">$9.99/mo</p>
+                        <ul>
+                            <li>Feature 1</li>
+                            <li>Feature 2</li>
+                            <li>Feature 3</li>
+                        </ul>
+                        <button>Choose Plan</button>
+                    </div>
+                </div>
+            `;
+            break;
+        case 'section':
+            element.innerHTML = '<div class="section" style="width: 100%; height: 200px; border: 1px dashed #ccc;"></div>';
+            break;
+        case 'container':
+            element.innerHTML = '<div class="container" style="width: 80%; margin: 0 auto; border: 1px dashed #ccc;"></div>';
+            break;
+        case 'grid':
+            element.innerHTML = `
+                <div class="grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <div style="background-color: #f0f0f0; padding: 20px;">Grid Item 1</div>
+                    <div style="background-color: #f0f0f0; padding: 20px;">Grid Item 2</div>
+                    <div style="background-color: #f0f0f0; padding: 20px;">Grid Item 3</div>
+                </div>
+            `;
+            break;
     }
 
     element.addEventListener('mousedown', elementMouseDown);
@@ -267,11 +355,27 @@ function toggleCodeView() {
     const generatedCode = document.getElementById('generated-code');
     
     if (overlay.style.display === 'none') {
-        generatedCode.textContent = canvas.innerHTML;
+        generatedCode.textContent = formatHTML(canvas.innerHTML);
         overlay.style.display = 'flex';
     } else {
         overlay.style.display = 'none';
     }
+}
+
+function formatHTML(html) {
+    let formatted = '';
+    let indent = '';
+    const tab = '    ';
+    html.split(/>\s*</).forEach(element => {
+        if (element.match(/^\/\w/)) {
+            indent = indent.substring(tab.length);
+        }
+        formatted += indent + '<' + element + '>\r\n';
+        if (element.match(/^<?\w[^>]*[^\/]$/) && !element.startsWith("input")) {
+            indent += tab;
+        }
+    });
+    return formatted.substring(1, formatted.length - 3);
 }
 
 function toggleGrid() {
@@ -330,4 +434,28 @@ function setupCanvasElements() {
         element.addEventListener('dblclick', makeEditable);
         addResizeHandle(element);
     });
+}
+
+function setupCodeViewOverlay() {
+    const closeButton = document.getElementById('close-code-view');
+    closeButton.addEventListener('click', () => {
+        document.getElementById('code-view-overlay').style.display = 'none';
+    });
+}
+
+function startCountdown(element) {
+    let time = 24 * 60 * 60; // 24 hours in seconds
+    const countdownTimer = setInterval(() => {
+        const hours = Math.floor(time / 3600);
+        const minutes = Math.floor((time % 3600) / 60);
+        const seconds = time % 60;
+        
+        element.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (time <= 0) {
+            clearInterval(countdownTimer);
+            element.textContent = "Countdown finished!";
+        }
+        time--;
+    }, 1000);
 }
