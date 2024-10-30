@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Builder</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+    <title>Web Page Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -13,30 +13,30 @@
             <h1>Choose a Template</h1>
             <div class="template-grid">
                 <div class="template" data-template="business">
-                    <img src="https://via.placeholder.com/150" alt="Business Template">
+                    <img src="https://via.placeholder.com/150?text=Business" alt="Business Template">
                     <p>Business</p>
                 </div>
                 <div class="template" data-template="portfolio">
-                    <img src="https://via.placeholder.com/150" alt="Portfolio Template">
+                    <img src="https://via.placeholder.com/150?text=Portfolio" alt="Portfolio Template">
                     <p>Portfolio</p>
                 </div>
                 <div class="template" data-template="blog">
-                    <img src="https://via.placeholder.com/150" alt="Blog Template">
+                    <img src="https://via.placeholder.com/150?text=Blog" alt="Blog Template">
                     <p>Blog</p>
                 </div>
                 <div class="template" data-template="ecommerce">
-                    <img src="https://via.placeholder.com/150" alt="E-commerce Template">
+                    <img src="https://via.placeholder.com/150?text=E-commerce" alt="E-commerce Template">
                     <p>E-commerce</p>
                 </div>
                 <div class="template" data-template="blank">
-                    <img src="https://via.placeholder.com/150" alt="Blank Template">
+                    <img src="https://via.placeholder.com/150?text=Blank" alt="Blank Template">
                     <p>Blank</p>
                 </div>
             </div>
         </div>
         <div id="builder" class="hidden">
             <div id="sidebar">
-                <div class="logo">Website Builder</div>
+                <div class="logo">Web Builder</div>
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Elements</h3>
                     <div class="element-grid">
@@ -109,7 +109,7 @@
                             <span>Section</span>
                         </div>
                         <div class="element" data-type="container">
-                            <i class="ri-layout-row-line"></i>
+                            <i class="ri-layout-3-line"></i>
                             <span>Container</span>
                         </div>
                         <div class="element" data-type="grid">
@@ -122,17 +122,17 @@
             <div id="main-content">
                 <div id="top-bar">
                     <div class="device-controls">
-                        <button class="button device-button active" data-device="desktop"><i class="ri-computer-line"></i> Desktop</button>
+                        <button class="button device-button" data-device="desktop"><i class="ri-computer-line"></i> Desktop</button>
                         <button class="button device-button" data-device="tablet"><i class="ri-tablet-line"></i> Tablet</button>
                         <button class="button device-button" data-device="mobile"><i class="ri-smartphone-line"></i> Mobile</button>
                     </div>
                     <div class="top-controls">
-                        <button id="undo-btn" class="button button-secondary"><i class="ri-arrow-go-back-line"></i> Undo</button>
-                        <button id="redo-btn" class="button button-secondary"><i class="ri-arrow-go-forward-line"></i> Redo</button>
-                        <button id="view-code-btn" class="button button-secondary"><i class="ri-code-line"></i> View Code</button>
-                        <button id="toggle-grid-btn" class="button button-secondary"><i class="ri-grid-line"></i> Toggle Grid</button>
+                        <button id="undo-btn" class="button"><i class="ri-arrow-go-back-line"></i> Undo</button>
+                        <button id="redo-btn" class="button"><i class="ri-arrow-go-forward-line"></i> Redo</button>
+                        <button id="view-code-btn" class="button"><i class="ri-code-line"></i> View Code</button>
+                        <button id="toggle-grid-btn" class="button"><i class="ri-grid-line"></i> Toggle Grid</button>
                         <button id="save-btn" class="button button-primary"><i class="ri-save-line"></i> Save</button>
-                        <button id="preview-btn" class="button button-primary"><i class="ri-eye-line"></i> Preview</button>
+                        <button id="preview-btn" class="button button-secondary"><i class="ri-eye-line"></i> Preview</button>
                     </div>
                 </div>
                 <div id="canvas-container">
@@ -140,8 +140,8 @@
                     <div class="grid-overlay"></div>
                 </div>
             </div>
-            <div id="properties-panel" class="collapsed">
-                <div id="properties-toggle"><i class="ri-arrow-left-s-line"></i></div>
+            <div id="properties-panel">
+                <button id="properties-toggle"><i class="ri-arrow-left-right-line"></i></button>
                 <h3>Element Properties</h3>
                 <div class="property-group">
                     <label for="element-width">Width:</label>
@@ -174,7 +174,7 @@
                     </div>
                 </div>
                 <div class="property-group">
-                    <label for="element-link">Link URL:</label>
+                    <label for="element-link">Link:</label>
                     <input type="text" id="element-link" class="property-input">
                 </div>
             </div>
