@@ -3,12 +3,15 @@ import { backend } from 'declarations/backend';
 let currentElement = null;
 let undoStack = [];
 let redoStack = [];
+let isDragging = false;
+let dragOffsetX, dragOffsetY;
 
 document.addEventListener('DOMContentLoaded', () => {
     setupDragAndDrop();
     setupDeviceControls();
     setupTopControls();
     setupPropertyPanel();
+    setupCanvas();
 });
 
 function setupDragAndDrop() {
@@ -63,17 +66,48 @@ function createElementByType(type) {
         // Add more cases for other element types
     }
 
-    element.addEventListener('click', selectElement);
+    element.addEventListener('mousedown', elementMouseDown);
     return element;
 }
 
-function selectElement(e) {
+function elementMouseDown(e) {
     if (currentElement) {
         currentElement.classList.remove('selected');
     }
     currentElement = e.target.closest('.canvas-element');
     currentElement.classList.add('selected');
     updatePropertyPanel();
+
+    isDragging = true;
+    dragOffsetX = e.clientX - currentElement.offsetLeft;
+    dragOffsetY = e.clientY - currentElement.offsetTop;
+
+    document.addEventListener('mousemove', elementDrag);
+    document.addEventListener('mouseup', elementMouseUp);
+}
+
+function elementDrag(e) {
+    if (isDragging && currentElement) {
+        e.preventDefault();
+        const canvas = document.getElementById('canvas');
+        let newX = e.clientX - canvas.offsetLeft - dragOffsetX;
+        let newY = e.clientY - canvas.offsetTop - dragOffsetY;
+
+        // Ensure the element stays within the canvas
+        newX = Math.max(0, Math.min(newX, canvas.clientWidth - currentElement.offsetWidth));
+        newY = Math.max(0, Math.min(newY, canvas.clientHeight - currentElement.offsetHeight));
+
+        currentElement.style.left = `${newX}px`;
+        currentElement.style.top = `${newY}px`;
+        updatePropertyPanel();
+    }
+}
+
+function elementMouseUp() {
+    isDragging = false;
+    document.removeEventListener('mousemove', elementDrag);
+    document.removeEventListener('mouseup', elementMouseUp);
+    addToUndoStack();
 }
 
 function setupDeviceControls() {
@@ -162,6 +196,7 @@ function undo() {
     if (undoStack.length > 1) {
         redoStack.push(undoStack.pop());
         canvas.innerHTML = undoStack[undoStack.length - 1];
+        setupCanvasElements();
     }
 }
 
@@ -169,6 +204,7 @@ function redo() {
     if (redoStack.length > 0) {
         undoStack.push(redoStack.pop());
         canvas.innerHTML = undoStack[undoStack.length - 1];
+        setupCanvasElements();
     }
 }
 
@@ -216,4 +252,26 @@ async function publishDesign() {
         console.error('Error publishing design:', error);
         alert('Failed to publish design. Please try again.');
     }
+}
+
+function setupCanvas() {
+    const canvas = document.getElementById('canvas');
+    canvas.addEventListener('click', canvasClick);
+}
+
+function canvasClick(e) {
+    if (e.target === canvas) {
+        if (currentElement) {
+            currentElement.classList.remove('selected');
+        }
+        currentElement = null;
+        updatePropertyPanel();
+    }
+}
+
+function setupCanvasElements() {
+    const elements = document.querySelectorAll('.canvas-element');
+    elements.forEach(element => {
+        element.addEventListener('mousedown', elementMouseDown);
+    });
 }
