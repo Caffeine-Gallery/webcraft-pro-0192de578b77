@@ -36,6 +36,7 @@ function setupTemplateSelection() {
 
 function loadTemplate(templateType) {
     const canvas = document.getElementById('canvas');
+    canvas.style.position = 'relative';
     let templateHTML = '';
 
     switch (templateType) {
@@ -64,7 +65,7 @@ function loadTemplate(templateType) {
 
 function getBusinessTemplate() {
     return `
-        <header class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa;">
+        <header class="canvas-element" style="position: absolute; top: 0; left: 0; width: 100%; padding: 20px; background-color: #f8f9fa;">
             <h1 contenteditable="true">Business Name</h1>
             <nav>
                 <a href="#" contenteditable="true">Home</a>
@@ -74,12 +75,12 @@ function getBusinessTemplate() {
             </nav>
         </header>
         <main>
-            <section class="canvas-element" style="padding: 40px; text-align: center;">
+            <section class="canvas-element" style="position: absolute; top: 100px; left: 0; width: 100%; padding: 40px; text-align: center;">
                 <h2 contenteditable="true">Welcome to Our Business</h2>
                 <p contenteditable="true">We provide top-notch services to help your business grow.</p>
                 <button contenteditable="true">Learn More</button>
             </section>
-            <section class="canvas-element" style="display: flex; justify-content: space-around; padding: 40px;">
+            <section class="canvas-element" style="position: absolute; top: 300px; left: 0; width: 100%; display: flex; justify-content: space-around; padding: 40px;">
                 <div>
                     <h3 contenteditable="true">Service 1</h3>
                     <p contenteditable="true">Description of service 1</p>
@@ -94,7 +95,7 @@ function getBusinessTemplate() {
                 </div>
             </section>
         </main>
-        <footer class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
+        <footer class="canvas-element" style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
             <p contenteditable="true">&copy; 2023 Business Name. All rights reserved.</p>
         </footer>
     `;
@@ -102,7 +103,7 @@ function getBusinessTemplate() {
 
 function getPortfolioTemplate() {
     return `
-        <header class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa;">
+        <header class="canvas-element" style="position: absolute; top: 0; left: 0; width: 100%; padding: 20px; background-color: #f8f9fa;">
             <h1 contenteditable="true">Your Name</h1>
             <nav>
                 <a href="#" contenteditable="true">Home</a>
@@ -112,11 +113,11 @@ function getPortfolioTemplate() {
             </nav>
         </header>
         <main>
-            <section class="canvas-element" style="padding: 40px; text-align: center;">
+            <section class="canvas-element" style="position: absolute; top: 100px; left: 0; width: 100%; padding: 40px; text-align: center;">
                 <h2 contenteditable="true">Welcome to My Portfolio</h2>
                 <p contenteditable="true">I'm a passionate creator specializing in web design and development.</p>
             </section>
-            <section class="canvas-element" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px;">
+            <section class="canvas-element" style="position: absolute; top: 300px; left: 0; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px;">
                 <div style="background-color: #f0f0f0; padding: 20px;">
                     <h3 contenteditable="true">Project 1</h3>
                     <p contenteditable="true">Description of project 1</p>
@@ -131,7 +132,7 @@ function getPortfolioTemplate() {
                 </div>
             </section>
         </main>
-        <footer class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
+        <footer class="canvas-element" style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
             <p contenteditable="true">&copy; 2023 Your Name. All rights reserved.</p>
         </footer>
     `;
@@ -139,7 +140,7 @@ function getPortfolioTemplate() {
 
 function getBlogTemplate() {
     return `
-        <header class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa;">
+        <header class="canvas-element" style="position: absolute; top: 0; left: 0; width: 100%; padding: 20px; background-color: #f8f9fa;">
             <h1 contenteditable="true">Blog Title</h1>
             <nav>
                 <a href="#" contenteditable="true">Home</a>
@@ -148,7 +149,7 @@ function getBlogTemplate() {
                 <a href="#" contenteditable="true">Contact</a>
             </nav>
         </header>
-        <main style="display: flex; padding: 40px;">
+        <main style="position: absolute; top: 100px; left: 0; width: 100%; display: flex; padding: 40px;">
             <section class="canvas-element" style="flex: 2; padding-right: 40px;">
                 <article>
                     <h2 contenteditable="true">Blog Post Title</h2>
@@ -171,7 +172,7 @@ function getBlogTemplate() {
                 </ul>
             </aside>
         </main>
-        <footer class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
+        <footer class="canvas-element" style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
             <p contenteditable="true">&copy; 2023 Blog Title. All rights reserved.</p>
         </footer>
     `;
@@ -179,7 +180,7 @@ function getBlogTemplate() {
 
 function getEcommerceTemplate() {
     return `
-        <header class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa;">
+        <header class="canvas-element" style="position: absolute; top: 0; left: 0; width: 100%; padding: 20px; background-color: #f8f9fa;">
             <h1 contenteditable="true">Store Name</h1>
             <nav>
                 <a href="#" contenteditable="true">Home</a>
@@ -189,10 +190,10 @@ function getEcommerceTemplate() {
             </nav>
         </header>
         <main>
-            <section class="canvas-element" style="padding: 40px; text-align: center;">
+            <section class="canvas-element" style="position: absolute; top: 100px; left: 0; width: 100%; padding: 40px; text-align: center;">
                 <h2 contenteditable="true">Featured Products</h2>
             </section>
-            <section class="canvas-element" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px;">
+            <section class="canvas-element" style="position: absolute; top: 200px; left: 0; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px;">
                 <div style="border: 1px solid #ddd; padding: 20px;">
                     <h3 contenteditable="true">Product 1</h3>
                     <p contenteditable="true">$19.99</p>
@@ -210,7 +211,7 @@ function getEcommerceTemplate() {
                 </div>
             </section>
         </main>
-        <footer class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
+        <footer class="canvas-element" style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
             <p contenteditable="true">&copy; 2023 Store Name. All rights reserved.</p>
         </footer>
     `;
@@ -255,6 +256,7 @@ function createElementByType(type) {
     const element = document.createElement('div');
     element.classList.add('canvas-element');
     element.dataset.type = type;
+    element.style.position = 'absolute';
 
     switch (type) {
         case 'heading':
@@ -673,8 +675,7 @@ function setupCanvasElements() {
 
 function setupCodeViewOverlay() {
     const closeButton = document.getElementById('close-code-view');
-    closeButton.addEventListener('click', () => {
-        document.getElementById('code-view-overlay').style.display = 'none';
+    closeButton.addEventListener('click', () => {document.getElementById('code-view-overlay').style.display = 'none';
     });
 }
 
