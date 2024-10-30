@@ -1,0 +1,23 @@
+type Result_1 = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type DesignId = nat;
+type Design = text;
+service : {
+  deleteDesign: (DesignId) -> (Result);
+  getDesign: (DesignId) -> (opt Design) query;
+  listDesigns: () -> (vec record {
+                            DesignId;
+                            Design;
+                          }) query;
+  publishDesign: (DesignId) -> (Result_1);
+  saveDesign: (Design) -> (DesignId);
+  updateDesign: (DesignId, Design) -> (Result);
+}
