@@ -66,9 +66,7 @@ body, html {
     justify-content: space-between;
     padding: 10px;
     background-color: #f0f0f0;
-}
-
-.device-controls, .top-controls {
+}.device-controls, .top-controls {
     display: flex;
     gap: 10px;
 }
@@ -185,7 +183,8 @@ body, html {
 #code-view-overlay {
     position: fixed;
     top: 0;
-    left: 0;right: 0;
+    left: 0;
+    right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
     display: flex;
@@ -306,4 +305,91 @@ body, html {
     font-family: monospace;
     font-size: 14px;
     line-height: 1.5;
+}
+
+.carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-item {
+    width: 100%;
+    display: none;
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+.carousel-item:first-child {
+    display: block;
+}
+
+.accordion {
+    width: 100%;
+}
+
+.accordion-item {
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+.accordion-header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.accordion-content {
+    padding: 10px;
+    display: none;
+}
+
+.tabs {
+    width: 100%;
+}
+
+.tab-headers {
+    display: flex;
+}
+
+.tab-header {
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.tab-header.active {
+    background-color: #fff;
+    border-bottom: none;
+}
+
+.tab-contents {
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.testimonial {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.testimonial-content {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.testimonial-author {
+    font-weight: bold;
 }
