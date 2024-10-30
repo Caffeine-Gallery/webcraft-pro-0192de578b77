@@ -485,18 +485,22 @@ function setupDeviceControls() {
 
 function adjustCanvasSize(device) {
     const canvas = document.getElementById('canvas');
+    const canvasContainer = document.getElementById('canvas-container');
     switch (device) {
         case 'desktop':
             canvas.style.width = '100%';
             canvas.style.height = '100%';
+            canvasContainer.style.overflow = 'hidden';
             break;
         case 'tablet':
-            canvas.style.width = '768px';
+            canvas.style.width = '100%';
             canvas.style.height = '1024px';
+            canvasContainer.style.overflow = 'auto';
             break;
         case 'mobile':
-            canvas.style.width = '375px';
+            canvas.style.width = '100%';
             canvas.style.height = '667px';
+            canvasContainer.style.overflow = 'auto';
             break;
     }
 }
@@ -675,7 +679,8 @@ function setupCanvasElements() {
 
 function setupCodeViewOverlay() {
     const closeButton = document.getElementById('close-code-view');
-    closeButton.addEventListener('click', () => {document.getElementById('code-view-overlay').style.display = 'none';
+    closeButton.addEventListener('click', () => {
+        document.getElementById('code-view-overlay').style.display = 'none';
     });
 }
 

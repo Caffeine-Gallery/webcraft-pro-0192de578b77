@@ -164,20 +164,18 @@ body, html {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     min-height: 100%;
+    width: 100%;
 }
 
 #canvas.desktop {
-    width: 100%;
     height: 100%;
 }
 
 #canvas.tablet {
-    width: 768px;
     height: 1024px;
 }
 
 #canvas.mobile {
-    width: 375px;
     height: 667px;
 }
 
