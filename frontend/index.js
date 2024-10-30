@@ -60,6 +60,7 @@ function loadTemplate(templateType) {
 
     canvas.innerHTML = templateHTML;
     setupCanvasElements();
+    addDeleteButtons();
     addToUndoStack();
 }
 
@@ -249,6 +250,7 @@ function drop(e) {
     newElement.style.left = `${e.clientX - canvasRect.left}px`;
     newElement.style.top = `${e.clientY - canvasRect.top}px`;
     e.target.appendChild(newElement);
+    addDeleteButton(newElement);
     addToUndoStack();
 }
 
@@ -667,8 +669,7 @@ function setupCanvas() {
     canvas.addEventListener('click', canvasClick);
 }
 
-function canvasClick(e) {
-    if (e.target === canvas) {
+function canvasClick(e) {if (e.target === canvas) {
         if (currentElement) {
             currentElement.classList.remove('selected');
         }
@@ -682,6 +683,7 @@ function setupCanvasElements() {
     elements.forEach(element => {
         element.addEventListener('mousedown', elementMouseDown);
         addResizeHandle(element);
+        addDeleteButton(element);
     });
 }
 
@@ -707,4 +709,31 @@ function startCountdown(element) {
         }
         time--;
     }, 1000);
+}
+
+function addDeleteButtons() {
+    const elements = document.querySelectorAll('.canvas-element');
+    elements.forEach(element => {
+        addDeleteButton(element);
+    });
+}
+
+function addDeleteButton(element) {
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = '&times;';
+    deleteButton.classList.add('delete-button');
+    deleteButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        deleteElement(element);
+    });
+    element.appendChild(deleteButton);
+}
+
+function deleteElement(element) {
+    element.remove();
+    if (currentElement === element) {
+        currentElement = null;
+        updatePropertyPanel();
+    }
+    addToUndoStack();
 }
