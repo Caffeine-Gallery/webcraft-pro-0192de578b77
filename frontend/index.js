@@ -8,6 +8,7 @@ let isResizing = false;
 let dragOffsetX, dragOffsetY;
 
 document.addEventListener('DOMContentLoaded', () => {
+    setupTemplateSelection();
     setupDragAndDrop();
     setupDeviceControls();
     setupTopControls();
@@ -15,6 +16,205 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCanvas();
     setupCodeViewOverlay();
 });
+
+function setupTemplateSelection() {
+    const templateSelection = document.getElementById('template-selection');
+    const builder = document.getElementById('builder');
+    const templates = document.querySelectorAll('.template');
+
+    templates.forEach(template => {
+        template.addEventListener('click', () => {
+            const templateType = template.dataset.template;
+            loadTemplate(templateType);
+            templateSelection.classList.remove('active');
+            templateSelection.classList.add('hidden');
+            builder.classList.remove('hidden');
+            builder.classList.add('active');
+        });
+    });
+}
+
+function loadTemplate(templateType) {
+    const canvas = document.getElementById('canvas');
+    let templateHTML = '';
+
+    switch (templateType) {
+        case 'business':
+            templateHTML = getBusinessTemplate();
+            break;
+        case 'portfolio':
+            templateHTML = getPortfolioTemplate();
+            break;
+        case 'blog':
+            templateHTML = getBlogTemplate();
+            break;
+        case 'ecommerce':
+            templateHTML = getEcommerceTemplate();
+            break;
+        case 'blank':
+        default:
+            templateHTML = '';
+            break;
+    }
+
+    canvas.innerHTML = templateHTML;
+    setupCanvasElements();
+    addToUndoStack();
+}
+
+function getBusinessTemplate() {
+    return `
+        <header class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa;">
+            <h1 contenteditable="true">Business Name</h1>
+            <nav>
+                <a href="#" contenteditable="true">Home</a>
+                <a href="#" contenteditable="true">About</a>
+                <a href="#" contenteditable="true">Services</a>
+                <a href="#" contenteditable="true">Contact</a>
+            </nav>
+        </header>
+        <main>
+            <section class="canvas-element" style="padding: 40px; text-align: center;">
+                <h2 contenteditable="true">Welcome to Our Business</h2>
+                <p contenteditable="true">We provide top-notch services to help your business grow.</p>
+                <button contenteditable="true">Learn More</button>
+            </section>
+            <section class="canvas-element" style="display: flex; justify-content: space-around; padding: 40px;">
+                <div>
+                    <h3 contenteditable="true">Service 1</h3>
+                    <p contenteditable="true">Description of service 1</p>
+                </div>
+                <div>
+                    <h3 contenteditable="true">Service 2</h3>
+                    <p contenteditable="true">Description of service 2</p>
+                </div>
+                <div>
+                    <h3 contenteditable="true">Service 3</h3>
+                    <p contenteditable="true">Description of service 3</p>
+                </div>
+            </section>
+        </main>
+        <footer class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
+            <p contenteditable="true">&copy; 2023 Business Name. All rights reserved.</p>
+        </footer>
+    `;
+}
+
+function getPortfolioTemplate() {
+    return `
+        <header class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa;">
+            <h1 contenteditable="true">Your Name</h1>
+            <nav>
+                <a href="#" contenteditable="true">Home</a>
+                <a href="#" contenteditable="true">Projects</a>
+                <a href="#" contenteditable="true">About</a>
+                <a href="#" contenteditable="true">Contact</a>
+            </nav>
+        </header>
+        <main>
+            <section class="canvas-element" style="padding: 40px; text-align: center;">
+                <h2 contenteditable="true">Welcome to My Portfolio</h2>
+                <p contenteditable="true">I'm a passionate creator specializing in web design and development.</p>
+            </section>
+            <section class="canvas-element" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px;">
+                <div style="background-color: #f0f0f0; padding: 20px;">
+                    <h3 contenteditable="true">Project 1</h3>
+                    <p contenteditable="true">Description of project 1</p>
+                </div>
+                <div style="background-color: #f0f0f0; padding: 20px;">
+                    <h3 contenteditable="true">Project 2</h3>
+                    <p contenteditable="true">Description of project 2</p>
+                </div>
+                <div style="background-color: #f0f0f0; padding: 20px;">
+                    <h3 contenteditable="true">Project 3</h3>
+                    <p contenteditable="true">Description of project 3</p>
+                </div>
+            </section>
+        </main>
+        <footer class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
+            <p contenteditable="true">&copy; 2023 Your Name. All rights reserved.</p>
+        </footer>
+    `;
+}
+
+function getBlogTemplate() {
+    return `
+        <header class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa;">
+            <h1 contenteditable="true">Blog Title</h1>
+            <nav>
+                <a href="#" contenteditable="true">Home</a>
+                <a href="#" contenteditable="true">Categories</a>
+                <a href="#" contenteditable="true">About</a>
+                <a href="#" contenteditable="true">Contact</a>
+            </nav>
+        </header>
+        <main style="display: flex; padding: 40px;">
+            <section class="canvas-element" style="flex: 2; padding-right: 40px;">
+                <article>
+                    <h2 contenteditable="true">Blog Post Title</h2>
+                    <p contenteditable="true">Published on <time datetime="2023-05-01">May 1, 2023</time></p>
+                    <p contenteditable="true">This is the content of your blog post. It can be as long as you want and include various elements like images, quotes, and more.</p>
+                </article>
+            </section>
+            <aside class="canvas-element" style="flex: 1;">
+                <h3 contenteditable="true">Recent Posts</h3>
+                <ul>
+                    <li contenteditable="true">Post 1</li>
+                    <li contenteditable="true">Post 2</li>
+                    <li contenteditable="true">Post 3</li>
+                </ul>
+                <h3 contenteditable="true">Categories</h3>
+                <ul>
+                    <li contenteditable="true">Category 1</li>
+                    <li contenteditable="true">Category 2</li>
+                    <li contenteditable="true">Category 3</li>
+                </ul>
+            </aside>
+        </main>
+        <footer class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
+            <p contenteditable="true">&copy; 2023 Blog Title. All rights reserved.</p>
+        </footer>
+    `;
+}
+
+function getEcommerceTemplate() {
+    return `
+        <header class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa;">
+            <h1 contenteditable="true">Store Name</h1>
+            <nav>
+                <a href="#" contenteditable="true">Home</a>
+                <a href="#" contenteditable="true">Products</a>
+                <a href="#" contenteditable="true">Cart</a>
+                <a href="#" contenteditable="true">Account</a>
+            </nav>
+        </header>
+        <main>
+            <section class="canvas-element" style="padding: 40px; text-align: center;">
+                <h2 contenteditable="true">Featured Products</h2>
+            </section>
+            <section class="canvas-element" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px;">
+                <div style="border: 1px solid #ddd; padding: 20px;">
+                    <h3 contenteditable="true">Product 1</h3>
+                    <p contenteditable="true">$19.99</p>
+                    <button contenteditable="true">Add to Cart</button>
+                </div>
+                <div style="border: 1px solid #ddd; padding: 20px;">
+                    <h3 contenteditable="true">Product 2</h3>
+                    <p contenteditable="true">$24.99</p>
+                    <button contenteditable="true">Add to Cart</button>
+                </div>
+                <div style="border: 1px solid #ddd; padding: 20px;">
+                    <h3 contenteditable="true">Product 3</h3>
+                    <p contenteditable="true">$29.99</p>
+                    <button contenteditable="true">Add to Cart</button>
+                </div>
+            </section>
+        </main>
+        <footer class="canvas-element" style="width: 100%; padding: 20px; background-color: #f8f9fa; text-align: center;">
+            <p contenteditable="true">&copy; 2023 Store Name. All rights reserved.</p>
+        </footer>
+    `;
+}
 
 function setupDragAndDrop() {
     const elements = document.querySelectorAll('.element');
