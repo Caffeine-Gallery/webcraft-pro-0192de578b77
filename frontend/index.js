@@ -19,6 +19,7 @@ function setupDragAndDrop() {
     const canvas = document.getElementById('canvas');
 
     elements.forEach(element => {
+        element.setAttribute('draggable', 'true');
         element.addEventListener('dragstart', dragStart);
     });
 
@@ -28,20 +29,23 @@ function setupDragAndDrop() {
 
 function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.dataset.type);
+    e.dataTransfer.effectAllowed = 'copy';
 }
 
 function dragOver(e) {
     e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
 }
 
 function drop(e) {
     e.preventDefault();
     const elementType = e.dataTransfer.getData('text');
     const newElement = createElementByType(elementType);
+    const canvasRect = e.target.getBoundingClientRect();
     newElement.style.position = 'absolute';
-    newElement.style.left = `${e.clientX - canvas.offsetLeft}px`;
-    newElement.style.top = `${e.clientY - canvas.offsetTop}px`;
-    canvas.appendChild(newElement);
+    newElement.style.left = `${e.clientX - canvasRect.left}px`;
+    newElement.style.top = `${e.clientY - canvasRect.top}px`;
+    e.target.appendChild(newElement);
     addToUndoStack();
 }
 

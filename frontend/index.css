@@ -226,3 +226,10 @@ body, html {
 .canvas-element:hover {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+
+#canvas {
+    min-height: 100%;
+    background-color: #fff;
+    position: relative;
+    z-index: 1;
+}
